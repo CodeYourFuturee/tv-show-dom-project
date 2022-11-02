@@ -21,6 +21,7 @@ import {
 } from "./render/variable.js";
 
 import intro from "./render/select.js";
+import "./assets/css/tvshow.css";
 // import fetch from "./tools/request.js";
 //💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫
 

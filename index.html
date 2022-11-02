@@ -10,7 +10,28 @@
 
   <body>
     <div id="root"></div>
-    <h1>HELLO</h1>
+    <header id="header">
+      <button id="episode-button">Game of Thrones</button>
+      <form id="form" action="">
+        <input id="live_search" type="text" />
+        <button id="search_name">click</button>
+
+        <p class="h3"></p>
+      </form>
+      <div class="select">
+        <select
+          name="link"
+          id="form-select"
+          size="1"
+          onchange="window.location.href = this.value"
+        ></select>
+        <button id="reset">reset</button>
+      </div>
+    </header>
+
+    <div id="contanair">
+      <div class="contanair"></div>
+    </div>
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
 

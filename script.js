@@ -19,37 +19,19 @@ const buttonEpisode = document.querySelector("#episode-button");
 const h3 = document.querySelector(".h3");
 const formSelect = document.querySelector("#form-select");
 const reset = document.querySelector("#reset");
+const url = "https://api.tvmaze.com/shows/82/episodes";
+
 //💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫
 //💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫
 
 buttonEpisode.addEventListener("click", function () {
   async function fetchEpisode() {
-    let response = await fetch(`https://api.tvmaze.com/shows/82/episodes`);
+    let response = await fetch(url);
     let data = await response.json();
     /** ForEch       */
     let AllEpisode = data;
     AllEpisode.forEach(item => {
-      function intro() {
-        let html = `<section class="episode_all">
-        <div class="overall_ditail">
-          <div class="episode_name text">${item.name}-S0${item.season}E0${item.number}</div>
-          <div class="img">
-            <img
-              src="${item.image.medium}"
-              alt=""
-              width="150px"
-              height="150px"
-            />
-          </div>
-          <div class="text">
-            ${item.summary}
-          </div>
-        </div>
-      </section>`;
-        containerAll.insertAdjacentHTML("beforebegin", html);
-        containerAll.getElementsByClassName.opacity = 1;
-      }
-      intro();
+      intro(item);
     });
   }
   fetchEpisode();
@@ -59,65 +41,47 @@ buttonEpisode.addEventListener("click", function () {
 //💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫
 buttonName.addEventListener("click", function (e) {
   e.preventDefault();
-  async function fetchEpisode() {
-    let response = await fetch(`https://api.tvmaze.com/shows/82/episodes`);
-    let data = await response.json();
-    /** ForEch       */
-    let AllEpisode = data;
-    let search = liveSearchName.value;
-    let searchResult = AllEpisode.filter(item => {
-      let textName = item.name.toLowerCase();
-      let textSummary = item.summary.toLowerCase();
-      let allText = textName + textSummary;
-      return allText.includes(search.toLowerCase());
-    });
+  if (liveSearchName.value === "") {
+    alert("Please enter a name");
+  } else {
+    async function fetchEpisode() {
+      let response = await fetch(url);
+      let data = await response.json();
+      /** ForEch       */
+      let AllEpisode = data;
+      let search = liveSearchName.value;
+      let searchResult = AllEpisode.filter(item => {
+        let textName = item.name.toLowerCase();
+        let textSummary = item.summary.toLowerCase();
+        let allText = textName + textSummary;
+        return allText.includes(search.toLowerCase());
+      });
 
-    searchResult.forEach(item => {
-      h3.textContent = `Displaying ${searchResult.length}/${AllEpisode.length} episodes`;
-      function intro() {
-        let html = `<section class="episode_all">
-        <div class="overall_ditail">
-          <div class="episode_name text">${item.name}-S0${item.season}E0${item.number}</div>
-          <div class="img">
-            <img
-              src="${item.image.medium}"
-              alt=""
-              width="150px"
-              height="150px"
-            />
-          </div>
-          <div class="text">
-            ${item.summary}
-          </div>
-        </div>
-      </section>`;
-        containerAll.insertAdjacentHTML("beforebegin", html);
-        containerAll.getElementsByClassName.opacity = 1;
-      }
-      intro();
-    });
+      searchResult.forEach(item => {
+        h3.textContent = `Displaying ${searchResult.length}/${AllEpisode.length} episodes`;
+        intro(item);
+      });
+    }
+    fetchEpisode();
   }
-
-  fetchEpisode();
 });
 
 //💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫
 //💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫
 
 async function fetchEpisode() {
-  let response = await fetch(`https://api.tvmaze.com/shows/82/episodes`);
+  let response = await fetch(url);
   let data = await response.json();
   /** ForEch       */
   let AllEpisode = data;
   AllEpisode.forEach(item => {
+    let morThan10 = "E" + item.number;
+    let lessThan10 = "E0" + item.number;
     let options = document.createElement("option");
     options.setAttribute("value", `${item.url}`);
-    options.textContent = `S0${item.season}E0${item.number}- ${item.name}`;
-    // let link = document.createElement("a");
-    // link.href = `${item.url}`;
-    // link.textContent = `S0${item.season}E0${item.number}- ${item.name}`;
-
-    // options.appendChild(link);
+    options.textContent = `S0${item.season}${
+      item.number >= 10 ? morThan10 : lessThan10
+    }- ${item.name}`;
     formSelect.appendChild(options);
   });
 }
@@ -126,3 +90,24 @@ fetchEpisode();
 reset.addEventListener("click", function () {
   location.reload();
 });
+//💫💫💫💫💫💫💫💫💫💫💫
+function intro(item) {
+  let html = `<section class="episode_all">
+  <div class="overall_ditail">
+    <div class="episode_name text">${item.name}-S0${item.season}E0${item.number}</div>
+    <div class="img">
+      <img
+        src="${item.image.medium}"
+        alt=""
+        width="150px"
+        height="150px"
+      />
+    </div>
+    <div class="text">
+      ${item.summary}
+    </div>
+  </div>
+</section>`;
+  containerAll.insertAdjacentHTML("beforebegin", html);
+  // containerAll.getElementsByClassName.opacity = 1;
+}

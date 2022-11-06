@@ -19,6 +19,7 @@ const buttonEpisode = document.querySelector("#episode-button");
 const h3 = document.querySelector(".h3");
 const formSelect = document.querySelector("#form-select");
 const reset = document.querySelector("#reset");
+const episodeAll = document.querySelectorAll(".episode_all");
 const url = "https://api.tvmaze.com/shows/82/episodes";
 
 //💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫
@@ -92,9 +93,13 @@ reset.addEventListener("click", function () {
 });
 //💫💫💫💫💫💫💫💫💫💫💫
 function intro(item) {
-  let html = `<section class="episode_all">
+  let morThan10 = "E" + item.number;
+  let lessThan10 = "E0" + item.number;
+  let html = `<section class="episode_all active">
   <div class="overall_ditail">
-    <div class="episode_name text">${item.name}-S0${item.season}E0${item.number}</div>
+    <div class="episode_name text">${item.name}-S0${item.season}${
+    item.number >= 10 ? morThan10 : lessThan10
+  }</div>
     <div class="img">
       <img
         src="${item.image.medium}"
@@ -111,3 +116,5 @@ function intro(item) {
   containerAll.insertAdjacentHTML("beforebegin", html);
   // containerAll.getElementsByClassName.opacity = 1;
 }
+//episodeAll.classList.remove("active");
+//episodeAll.classList.add("reset1");

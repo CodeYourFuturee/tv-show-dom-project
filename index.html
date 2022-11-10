@@ -11,27 +11,28 @@
   <body>
     <div id="root"></div>
     <header id="header">
-      <button id="episode-button">Game of Thrones</button>
+      <button id="episode-button">First select from All shows</button>
       <form id="form" action="">
-        <input id="live_search" type="text" />
+        <input id="live_search" type="text" placeholder="Filter by word" />
         <button id="search_name">click</button>
 
         <p class="h3"></p>
       </form>
       <div class="select">
-        <select
-          name="link"
-          id="form-select"
-          size="1"
-          onchange="window.location.href = this.value"
-        ></select>
+        <label for="" id="sel-label"></label>
+        <select name="link" id="form-select"></select>
         <button id="reset">reset</button>
+      </div>
+      <div class="selectAllShow">
+        <label for="">All Shows</label>
+        <select name="link" id="form-select-all-show"></select>
       </div>
     </header>
 
-    <div id="contanair">
-      <div class="contanair"></div>
+    <div id="container">
+      <div class="container show-container"></div>
     </div>
+
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
 
@@ -40,3 +41,5 @@
   </body>
   <!--TV Show Project | My Name (My GitHub username)-->
 </html>
+<!--  size="1"
+          onchange="window.location.href = this.value"-->

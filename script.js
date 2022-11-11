@@ -31,6 +31,7 @@ const selLabel = document.querySelector("#sel-label");
 function episodes(url) {
   buttonEpisode.addEventListener("click", function () {
     containerAll.innerHTML = "";
+    h3.textContent = "";
     containerAll.className = "container_all";
     async function fetchEpisode() {
       let response = await fetch(url);
@@ -38,6 +39,7 @@ function episodes(url) {
       /** ForEch       */
       let AllEpisode = data;
       AllEpisode.forEach(item => {
+        h3.textContent = `Displaying ${AllEpisode.length}/${AllEpisode.length} episodes`;
         intro(item);
       });
     }
@@ -52,6 +54,7 @@ function filterEpo(url) {
   buttonName.addEventListener("click", function (e) {
     e.preventDefault();
     containerAll.innerHTML = "";
+    h3.textContent = "";
     containerAll.className = "container_all";
     if (liveSearchName.value === "") {
       alert("Please enter a name");
@@ -68,6 +71,7 @@ function filterEpo(url) {
           let allText = textName + textSummary;
           return allText.includes(search.toLowerCase());
         });
+        liveSearchName.value = "";
         searchResult.forEach(item => {
           h3.textContent = `Displaying ${searchResult.length}/${AllEpisode.length} episodes`;
           intro(item);

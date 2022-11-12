@@ -26,6 +26,7 @@ const formSelectAllShow = document.querySelector("#form-select-all-show");
 const episodeAll = document.querySelectorAll(".episode_all");
 // const url = "https://api.tvmaze.com/shows/82/episodes";
 const selLabel = document.querySelector("#sel-label");
+
 //💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫
 //💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫💫
 function episodes(url) {
@@ -113,14 +114,16 @@ async function fetchEpisode(url) {
   });
 }
 //🌧🌧🌧🌧🌧🌧🌧🌧🌧🌧🌧🌧🌧🌧🌧🌧
-
 async function fetchAllShows() {
   let nameUrl = "https://api.tvmaze.com/shows/";
+  let getApi = "https://api.tvmaze.com/shows/";
+  let castListing = "http://api.tvmaze.com/shows/1?embed=cast";
   let response = await fetch("https://api.tvmaze.com/shows");
   let data = await response.json();
   /** ForEch       */
   let AllEpisode = data;
   AllEpisode.forEach(item => {
+    // item.sort((a, b) => a.name.localeCompare(b.name));
     let options = document.createElement("option");
     options.setAttribute("value", `${item.url}`);
     options.textContent = `${item.name}`;
@@ -133,7 +136,23 @@ async function fetchAllShows() {
       return item.url.includes(search);
     });
     searchResult.forEach(item => {
-      introShow(item); //🌞
+      introShow(item); //🌞🌞🌞🌞🌞🌞🌞🌞🌞🌞🌞🌞🌞🌞🌞🌞
+      img.style.cursor = "pointer";
+      img.addEventListener("click", function () {
+        showContainer.innerHTML = "";
+        containerAll.className = "container_all";
+        getApi += searchResult[0].id + "/episodes";
+        async function getBun() {
+          let response = await fetch(getApi);
+          let data = await response.json();
+          /** ForEch       */
+          let episodeOfShow = data;
+          episodeOfShow.forEach(item => {
+            getBunEpisodes(item);
+          });
+        }
+        getBun();
+      });
     });
   });
   //🌧
@@ -147,10 +166,10 @@ async function fetchAllShows() {
     nameUrl += searchResult[0].id + "/episodes";
     episodeButton.textContent = "All Episodes" + " " + searchResult[0].name;
     selLabel.textContent = searchResult[0].name;
-    console.log(searchResult[0].genres[0]);
     episodes(nameUrl);
     fetchEpisode(nameUrl);
     filterEpo(nameUrl);
+    //🌈
   });
 }
 fetchAllShows();
@@ -202,4 +221,32 @@ function introShow(item) {
   </section>
 </div>`;
   showContainer.innerHTML += html;
+  // return img;
+}
+
+function getBunEpisodes(item) {
+  let morThan10 = "E" + item.number;
+  let lessThan10 = "E0" + item.number;
+  let html = `
+  <section class="episode_all active">
+  <div class="overall_ditail">
+    <div class="episode_name text">${item.name}-S0${item.season}${
+    item.number >= 10 ? morThan10 : lessThan10
+  }</div>
+    <div class="img">
+      <img
+        src="${item.image.medium}"
+        alt=""
+        width="150px"
+        height="150px"
+      />
+    </div>
+    <div class="text">
+      ${item.summary}
+    </div>
+  </div>
+</section>
+
+`;
+  containerAll.innerHTML += html;
 }

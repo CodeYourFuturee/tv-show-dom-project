@@ -1,6 +1,7 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -12,6 +13,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css", // [name] is a placeholder for the name of the entry point (e.g. main)  (to avoid browser caching)
       chunkFilename: "[id].css", // [id] is a placeholder for the id of the chunk (e.g. 0)  (to avoid browser caching)
+    }),
+    new HtmlWebpackPlugin({
+      template: "./public/index.html", // template file to use for generating the HTML file to serve our webpack bundle (e.g. index.html)
     }),
     new CleanWebpackPlugin(), // clean the build folder before each build
   ], // new MiniCssExtractPlugin({filename: "style.css"})

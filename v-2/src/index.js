@@ -1,4 +1,5 @@
 import "./assets/css/style.css";
+import "./assets/scss/style.scss";
 
 console.log("just for config webpack");
 // const h1 = document.querySelector(".red");

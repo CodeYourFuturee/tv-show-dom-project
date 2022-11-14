@@ -1,5 +1,6 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -12,6 +13,7 @@ module.exports = {
       filename: "[name].[contenthash].css", // [name] is a placeholder for the name of the entry point (e.g. main)  (to avoid browser caching)
       chunkFilename: "[id].css", // [id] is a placeholder for the id of the chunk (e.g. 0)  (to avoid browser caching)
     }),
+    new CleanWebpackPlugin(), // clean the build folder before each build
   ], // new MiniCssExtractPlugin({filename: "style.css"})
   module: {
     rules: [

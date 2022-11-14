@@ -5,9 +5,14 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "build"),
-    filename: "bundle.js",
+    filename: "bundle.[contenthash].js", // [contenthash] is a unique hash generated for each build to avoid browser caching issues when we deploy our app  // [hash] is a unique hash generated for each build to avoid browser caching issues when we deploy our app
   },
-  plugins: [new MiniCssExtractPlugin()], // new MiniCssExtractPlugin({filename: "style.css"})
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "[name].[contenthash].css", // [name] is a placeholder for the name of the entry point (e.g. main)  (to avoid browser caching)
+      chunkFilename: "[id].css", // [id] is a placeholder for the id of the chunk (e.g. 0)  (to avoid browser caching)
+    }),
+  ], // new MiniCssExtractPlugin({filename: "style.css"})
   module: {
     rules: [
       {

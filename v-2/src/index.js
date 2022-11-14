@@ -14,5 +14,16 @@ img.classList.add("img");
 divImg.appendChild(img);
 body.appendChild(divImg);
 
-console.log(h1[0]);
+console.log(`${h1[0].textContent} is a great show!`);
 h1[0].classList.add("red");
+
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  greeting() {
+    console.log(`My name is ${this.name} and I am ${this.age}`);
+  }
+}
+console.log(Person);

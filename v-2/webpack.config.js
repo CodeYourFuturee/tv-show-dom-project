@@ -68,6 +68,7 @@ const config = {
     path: path.resolve(__dirname, "build"),
     filename: "bundle.[contenthash].js", // [contenthash] is a unique hash generated for each build to avoid browser caching issues when we deploy our app  // [hash] is a unique hash generated for each build to avoid browser caching issues when we deploy our app
   },
+  stats: "errors-only", // to show only errors in the terminal
   plugins: [
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css", // [name] is a placeholder for the name of the entry point (e.g. main)  (to avoid browser caching)
@@ -123,6 +124,14 @@ module.exports = (env, { mode }) => {
     //   port: 3000,
     //   open: true,
     // };
+    config.devServer = {
+      static: {
+        directory: path.join(__dirname, "build"),
+      },
+      compress: true,
+      port: 9000,
+      open: true,
+    };
   }
 
   if (mode === "production") {

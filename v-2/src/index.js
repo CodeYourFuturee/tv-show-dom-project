@@ -16,7 +16,7 @@ body.appendChild(divImg);
 
 console.log(`${h1[0].textContent} is a great show!`);
 h1[0].classList.add("red");
-h1[0].textContent = "Hello World from Webpack";
+h1[0].textContent = "Hello World Rebwar";
 
 class Person {
   constructor(name, age) {

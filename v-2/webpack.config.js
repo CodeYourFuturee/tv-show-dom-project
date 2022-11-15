@@ -124,6 +124,7 @@ module.exports = (env, { mode }) => {
     //   port: 3000,
     //   open: true,
     // };
+    config.stats = "minimal"; // to show only minimal info in the terminal
     config.devServer = {
       static: {
         directory: path.join(__dirname, "build"),
@@ -135,7 +136,9 @@ module.exports = (env, { mode }) => {
   }
 
   if (mode === "production") {
-    config.plugins.push(new CleanWebpackPlugin());
+    // config.stats = "verbose"; // to show all info in the terminal
+    config.stats = "minimal";
+    config.plugins.push(new CleanWebpackPlugin()); // clean the build folder before each build
   }
 
   return config;
